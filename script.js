@@ -7,29 +7,52 @@ var clarv = [];
 var claad = [];
 var clamv = [];
 var similar = 0;
-/* global similar_text */
 
-function makeTable(container, data) {
-  var table = $("<table/>").addClass('CSSTableGenerator');
-  $.each(data, function(rowIndex, r) {
-    var row = $("<tr/>");
-    $.each(r, function(colIndex, c) {
-        row.append($("<t"+(rowIndex == 0 ?  "h" : "d")+"/>").text(c));
-    });
-    table.append(row);
+function count_element(xml) {
+  var count = 0;
+  $(xml).find('schema > element').each(function(i,key) {
+    count++;
   });
-  return container.append(table);
+  alert(count);
 }
 
-function makeTableNoColumn(container, data, columnName) {
-  var table = $("<table/>").addClass('CSSTableGenerator');
-  table.append('<tr><th>'+columnName+'</th></tr>');
-  $.each(data, function(rowIndex, r) {
-    var row = $("<tr/>");
-    row.append($("<td/>").text(r));
-    table.append(row);
+window.onload = function() {
+  var fileInput = document.getElementById('fileInput');
+  var fileDisplayArea = document.getElementById('fileDisplayArea');
+  fileInput.addEventListener('change', function(e) {
+    var file = fileInput.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+        //fileDisplayArea.innerText = reader.result;
+        xml = reader.result;
+        var count = $(xml).find('element').filter(function() {
+            return $(this).parent('schema').length === 1
+          }).length;
+        // $(xml).find('element').filter(function() {
+        //     return $(this).parent('schema').length === 1
+        //   }).each(function(){console.log($(this).attr('name'))})
+
+        fileDisplayArea.innerText = 'Global Element = ' + count;
+    }
+
+    reader.readAsText(file);
+
   });
-  return container.append(table);
+}
+
+function load_file(file_url) {
+  $.ajax({
+    type: "GET",
+    url: "file_url",
+    dataType: "text xml",
+    success: function(xml) {
+      count_element(xml);
+    },
+    error: function() {
+      alert("The XML File could not be processed correctly.");
+    }
+  });
 }
 
 $.ajax({
@@ -162,3 +185,34 @@ $.ajax({
     alert("The XML File could not be processed correctly.");
   }
 });
+
+//preserve html tag in class name
+function HtmlEncode(s) {
+  var el = document.createElement("div");
+  el.innerText = el.textContent = s;
+  s = el.innerHTML;
+  return s;
+}
+
+function makeTable(container, data) {
+  var table = $("<table/>").addClass('CSSTableGenerator');
+  $.each(data, function(rowIndex, r) {
+    var row = $("<tr/>");
+    $.each(r, function(colIndex, c) {
+        row.append($("<t"+(rowIndex == 0 ?  "h" : "d")+"/>").text(c));
+    });
+    table.append(row);
+  });
+  return container.append(table);
+}
+
+function makeTableNoColumn(container, data, columnName) {
+  var table = $("<table/>").addClass('CSSTableGenerator');
+  table.append('<tr><th>'+columnName+'</th></tr>');
+  $.each(data, function(rowIndex, r) {
+    var row = $("<tr/>");
+    row.append($("<td/>").text(r));
+    table.append(row);
+  });
+  return container.append(table);
+}

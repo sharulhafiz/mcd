@@ -34,7 +34,11 @@
                 </form>
             </div>
             <div class="col-xs-6 col-xs-offset-3 bg-info" style="">
-              <ol class="main"></ol>            
+              <ol class="main"></ol>
+            </div>
+            <div class="col-xs-6 col-xs-offset-3 bg-info" style="">
+                <input type="file" id="fileInput" />
+                <pre id="fileDisplayArea"><pre>
             </div>
         </div>
     </div>
