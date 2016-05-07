@@ -22,6 +22,7 @@ window.onload = function() {
     fileInput.addEventListener('change', function(e) {
         var file = fileInput.files[0];
         var reader = new FileReader();
+        var xsd_data = [];
 
         reader.onload = function(e) {
             //fileDisplayArea.innerText = reader.result;
@@ -29,11 +30,18 @@ window.onload = function() {
             var count = $(xml).find('element').filter(function() {
                 return $(this).parent('schema').length === 1
             }).length;
+            var count_localelement = $(xml).find('element').filter(function() {
+                return $(this).parent('schema').length === 0
+            }).length;
+            var count_attribute = $(xml).find('attribute').filter(function() {
+                return $(this).parent('attributeGroup').length === 1
+            }).length;
             // $(xml).find('element').filter(function() {
             //     return $(this).parent('schema').length === 1
             //   }).each(function(){console.log($(this).attr('name'))})
-
-            fileDisplayArea.innerText = 'Global Element = ' + count;
+            xsd_data.push({"XML schema component":"Cpp-cpa-2.0 schema"},{"Global Element":count},{"Global Attribute":count_attribute},{"Local Element":count_localelement});
+            makeTable($('#fileDisplayArea'), xsd_data);
+            //fileDisplayArea.innerText = 'Global Element = ' + count;
         }
 
         reader.readAsText(file);
@@ -195,10 +203,11 @@ function HtmlEncode(s) {
 }
 
 function makeTable(container, data) {
-    var table = $("<table/>").addClass('CSSTableGenerator');
+    var table = $("<table/>").addClass('table-bordered');
     $.each(data, function(rowIndex, r) {
         var row = $("<tr/>");
         $.each(r, function(colIndex, c) {
+            row.append($("<t" + (rowIndex == 0 ? "h" : "d") + "/>").text(colIndex));
             row.append($("<t" + (rowIndex == 0 ? "h" : "d") + "/>").text(c));
         });
         table.append(row);

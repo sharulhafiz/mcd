@@ -1,18 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="en">
 <head>
   <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css">
 
   <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css" type="text/css">
 
   <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  <style type="text/css">
-    li {list-style-type:none;}
+  <!-- <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script> -->
+  <script src="jquery-2.2.3.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+
+  <!-- <script type="text/javascript" src="https://rawgit.com/sharulhafiz/mcd/master/script.js" ></script> -->
+  <script type="text/javascript" src="script.js" ></script>
+  <style>
+    th,td {
+      padding: 10px;
+    }
   </style>
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="mcd/similarity.js"></script>
-  <script src="mcd/script.js"></script>
 </head>
 <body>
     <div class="container">
@@ -37,10 +43,12 @@
               <ol class="main"></ol>
             </div>
             <div class="col-xs-6 col-xs-offset-3 bg-info" style="">
+                <h4>Input : </h4>
                 <input type="file" id="fileInput" />
-                <pre id="fileDisplayArea"><pre>
+                <h4>Output : </h4>
+                <div id="fileDisplayArea"><div>
             </div>
         </div>
     </div>
-
 </body>
+</html>
