@@ -36,10 +36,19 @@ window.onload = function() {
             var count_attribute = $(xml).find('attribute').filter(function() {
                 return $(this).parent('attributeGroup').length === 1
             }).length;
+            var count_globalcomplextype = $(xml).find('complexType').not($(this).parent('element')).length;
+            var count_globalsimpletype = $(xml).find('simpleType').filter(function() { return $(this).parent('schema').length === 1 }).length;
+            var count_attributeGroup = $(xml).find('attributeGroup').length;
+            var count_elementwithref = $(xml).find('element').filter(function() { return !!$(this).attr('ref') }).length;
             // $(xml).find('element').filter(function() {
             //     return $(this).parent('schema').length === 1
             //   }).each(function(){console.log($(this).attr('name'))})
             xsd_data.push({"XML schema component":"Cpp-cpa-2.0 schema"},{"Global Element":count},{"Global Attribute":count_attribute},{"Local Element":count_localelement});
+            xsd_data.push({"Global Complex Type":count_globalcomplextype});
+            xsd_data.push({"Global Simple Type":count_globalsimpletype});
+            xsd_data.push({"Group Model":0});
+            xsd_data.push({"Attribute Group":count_attributeGroup});
+            xsd_data.push({"Element with Ref":count_elementwithref});
             makeTable($('#fileDisplayArea'), xsd_data);
             //fileDisplayArea.innerText = 'Global Element = ' + count;
         }
